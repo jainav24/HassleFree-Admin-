@@ -1365,3 +1365,214 @@ h6 {
         display: none !important;
     }
 }
+
+/* =========================================
+   Users & Drivers Table
+   ========================================= */
+.users-table-card {
+    margin-bottom: 2rem;
+    overflow: visible;
+}
+
+.users-table-card .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Role Badges */
+.role-badge {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.role-badge.driver {
+    background-color: #d1fae5;
+    color: #047857;
+}
+
+.role-badge.customer {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+/* Active Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background-color: #cbd5e1;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-switch input:checked+.toggle-slider {
+    background-color: var(--primary-color);
+}
+
+.toggle-switch input:checked+.toggle-slider::before {
+    transform: translateX(20px);
+}
+
+.toggle-switch input:focus+.toggle-slider {
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Toggle cell alignment */
+.toggle-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Data table row hover (reuse existing) */
+#usersDriversTable tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+#usersDriversTable tbody tr:hover {
+    background-color: var(--bg-main);
+}
+
+/* =========================================
+   Revenue Report Table
+   ========================================= */
+.revenue-report-card {
+    margin-bottom: 2rem;
+    overflow: visible;
+}
+
+.revenue-report-card .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Override global left-align for numeric columns in revenue table */
+#revenueReportTable.data-table th.num-header,
+#revenueReportTable.data-table td.num-cell {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+}
+
+#revenueReportTable.data-table th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    background-color: #f8fafc;
+    padding: 0.9rem 1.5rem;
+}
+
+#revenueReportTable.data-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.925rem;
+}
+
+#revenueReportTable.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+#revenueReportTable.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#revenueReportTable.data-table tbody tr:hover {
+    background-color: var(--bg-main);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Revenue Report Card Header Summary */
+.revenue-report-card .card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.rev-summary {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.88rem;
+}
+
+.rev-summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+}
+
+.rev-summary-item .label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.rev-summary-item .val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.rev-summary-item .val.green {
+    color: var(--primary-color);
+}
+
+/* Growth % badges */
+.growth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.growth-badge.positive {
+    background-color: #d1fae5;
+    color: #047857;
+}
+
+.growth-badge.negative {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.growth-badge.neutral {
+    background-color: #f1f5f9;
+    color: #64748b;
+}

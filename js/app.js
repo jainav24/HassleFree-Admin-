@@ -843,6 +843,7 @@ Downloaded at: ${new Date().toLocaleString()}
             rides[index].status = 'Accepted';
             saveRides(rides);
             renderRidesTable();
+            renderMonthlyRevenueTable(); // auto-update revenue table
         }
         closeSimulationModal();
         alert('Driver has ACCEPTED the request!');
@@ -970,6 +971,7 @@ Thank you for choosing HassleFreeDrive!
         link.download = `Invoice_${invNumber.textContent}.txt`;
         link.click();
         URL.revokeObjectURL(link.href);
+        renderMonthlyRevenueTable(); // auto-update revenue table after invoice
     });
 
     /* =========================================
@@ -1172,6 +1174,194 @@ Thank you for choosing HassleFreeDrive!
     }
 
     /* =========================================
+       All Users & Drivers Table
+       ========================================= */
+
+    const ALL_USERS_DRIVERS_DATA = [
+        { id: 'u-1', name: 'Rajesh Kumar', joinDate: '2023-01-15', gender: 'Male', role: 'Driver' },
+        { id: 'u-2', name: 'Priya Sharma', joinDate: '2023-02-20', gender: 'Female', role: 'Driver' },
+        { id: 'u-3', name: 'Amit Patel', joinDate: '2023-03-05', gender: 'Male', role: 'Driver' },
+        { id: 'u-4', name: 'Sneha Desai', joinDate: '2023-04-11', gender: 'Female', role: 'Driver' },
+        { id: 'u-5', name: 'Rahul Verma', joinDate: '2023-05-03', gender: 'Male', role: 'Customer' },
+        { id: 'u-6', name: 'Anjali Gupta', joinDate: '2023-05-18', gender: 'Female', role: 'Customer' },
+        { id: 'u-7', name: 'Vikram Singh', joinDate: '2023-06-09', gender: 'Male', role: 'Customer' },
+        { id: 'u-8', name: 'Neha Reddy', joinDate: '2023-07-22', gender: 'Female', role: 'Customer' },
+        { id: 'u-9', name: 'Rohan Mehta', joinDate: '2023-08-14', gender: 'Male', role: 'Customer' },
+        { id: 'u-10', name: 'Kavya Nair', joinDate: '2023-09-01', gender: 'Female', role: 'Driver' }
+    ];
+
+    const UD_STORAGE_KEY = 'hasslefree_ud_active_states';
+
+    function getUDActiveStates() {
+        try {
+            return JSON.parse(localStorage.getItem(UD_STORAGE_KEY)) || {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function setUDActiveState(id, isActive) {
+        const states = getUDActiveStates();
+        states[id] = isActive;
+        localStorage.setItem(UD_STORAGE_KEY, JSON.stringify(states));
+    }
+
+    function formatJoinDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function renderUsersDriversTable() {
+        const tbody = document.getElementById('usersDriversTableBody');
+        if (!tbody) return;
+
+        const activeStates = getUDActiveStates();
+
+        tbody.innerHTML = ALL_USERS_DRIVERS_DATA.map(user => {
+            // Default new entries to active
+            const isActive = activeStates[user.id] !== undefined ? activeStates[user.id] : true;
+            const roleClass = user.role === 'Driver' ? 'driver' : 'customer';
+
+            return `
+            <tr>
+                <td>
+                    <div class="driver-info-cell">
+                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random&size=40" class="avatar" alt="${user.name}">
+                        <span style="font-weight: 500; color: var(--text-dark);">${user.name}</span>
+                    </div>
+                </td>
+                <td style="color: var(--text-muted); font-size: 0.875rem;">${formatJoinDate(user.joinDate)}</td>
+                <td style="color: var(--text-muted);">${user.gender}</td>
+                <td><span class="role-badge ${roleClass}">${user.role}</span></td>
+                <td class="toggle-cell">
+                    <label class="toggle-switch" title="${isActive ? 'Active' : 'Inactive'}">
+                        <input type="checkbox" class="ud-toggle" data-id="${user.id}" ${isActive ? 'checked' : ''}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </td>
+            </tr>`;
+        }).join('');
+
+        // Attach toggle listeners
+        tbody.querySelectorAll('.ud-toggle').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const id = this.getAttribute('data-id');
+                const active = this.checked;
+                setUDActiveState(id, active);
+                // Update tooltip title on parent label
+                this.closest('label').title = active ? 'Active' : 'Inactive';
+            });
+        });
+    }
+
+    /* =========================================
+       Monthly Revenue Report Table
+       ========================================= */
+
+    const MONTH_NAMES = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    function buildMonthlyRevenueData() {
+        const rides = getRides();
+        const map = {}; // key: "YYYY-MM"
+
+        rides.forEach(ride => {
+            if (ride.status !== 'Completed') return;
+
+            // Support both "YYYY-MM-DD HH:mm" and "YYYY-MM-DD" date formats
+            const datePart = ride.date ? ride.date.split(' ')[0] : null;
+            if (!datePart) return;
+
+            const [year, month] = datePart.split('-');
+            if (!year || !month) return;
+
+            const key = `${year}-${month}`;
+            const amount = parseInt((ride.amount || '0').replace(/[^0-9.-]+/g, '')) || 0;
+
+            if (!map[key]) {
+                map[key] = { year: parseInt(year), month: parseInt(month), revenue: 0, trips: 0 };
+            }
+            map[key].revenue += amount;
+            map[key].trips += 1;
+        });
+
+        // Sort chronologically
+        return Object.values(map).sort((a, b) =>
+            a.year !== b.year ? a.year - b.year : a.month - b.month
+        );
+    }
+
+    function renderMonthlyRevenueTable() {
+        const tbody = document.getElementById('revenueReportTableBody');
+        const summaryEl = document.getElementById('revSummaryStats');
+        if (!tbody) return;
+
+        const data = buildMonthlyRevenueData();
+
+        // --- Populate summary stats in card header ---
+        if (summaryEl) {
+            if (data.length === 0) {
+                summaryEl.innerHTML = '';
+            } else {
+                const totalRev = data.reduce((s, r) => s + r.revenue, 0);
+                const totalTrips = data.reduce((s, r) => s + r.trips, 0);
+                summaryEl.innerHTML = `
+                    <div class="rev-summary-item">
+                        <span class="label">Total Revenue</span>
+                        <span class="val green">₹${totalRev.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div class="rev-summary-item">
+                        <span class="label">Total Trips</span>
+                        <span class="val">${totalTrips}</span>
+                    </div>`;
+            }
+        }
+
+        // --- Empty state ---
+        if (data.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center; color:var(--text-muted); padding:2.5rem;">
+                        <i class="fa-solid fa-chart-column" style="font-size:1.5rem; margin-bottom:0.5rem; display:block; opacity:0.3;"></i>
+                        No completed rides yet. Revenue data will appear here automatically.
+                    </td>
+                </tr>`;
+            return;
+        }
+
+        // --- Table rows ---
+        tbody.innerHTML = data.map((row, i) => {
+            const prev = data[i - 1];
+            let growthHtml = '<span class="growth-badge neutral">—</span>';
+
+            if (prev && prev.revenue > 0) {
+                const pct = ((row.revenue - prev.revenue) / prev.revenue * 100).toFixed(1);
+                const isPos = parseFloat(pct) > 0;
+                const isZero = parseFloat(pct) === 0;
+                const cls = isZero ? 'neutral' : (isPos ? 'positive' : 'negative');
+                const icon = isZero ? '' : (isPos
+                    ? '<i class="fa-solid fa-arrow-trend-up"></i>'
+                    : '<i class="fa-solid fa-arrow-trend-down"></i>');
+                const sign = isPos ? '+' : '';
+                growthHtml = `<span class="growth-badge ${cls}">${icon} ${sign}${pct}%</span>`;
+            }
+
+            const revenueFormatted = '₹' + row.revenue.toLocaleString('en-IN');
+
+            return `
+            <tr>
+                <td style="font-weight:500;">${MONTH_NAMES[row.month - 1]}</td>
+                <td style="color:var(--text-muted);">${row.year}</td>
+                <td class="num-cell" style="font-weight:600; color:var(--primary-color);">${revenueFormatted}</td>
+                <td class="num-cell" style="color:var(--text-muted);">${row.trips}</td>
+                <td class="num-cell">${growthHtml}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    /* =========================================
        Initialize Application
        ========================================= */
 
@@ -1183,6 +1373,8 @@ Thank you for choosing HassleFreeDrive!
         renderDriversTable();
         renderRidesTable();
         renderReports(); // Pre-render reports data to ensure charts are prepped
+        renderUsersDriversTable(); // Render Users & Drivers table
+        renderMonthlyRevenueTable(); // Render Monthly Revenue table
     }
 
     // Run init
