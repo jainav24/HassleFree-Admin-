@@ -428,9 +428,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${driver.license}</td>
                 <td>${getStatusBadge(driver.status)}</td>
                 <td>
-                    <button class="actions-btn view-driver-btn" data-id="${driver.id}" title="View & Process"><i class="fa-solid fa-eye"></i></button>
-                    <button class="actions-btn edit-driver-btn" data-id="${driver.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="actions-btn delete delete-driver-btn" data-id="${driver.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    <div class="action-btns-container">
+                        <button class="actions-btn view-driver-btn" data-id="${driver.id}" title="View & Process"><i class="fa-solid fa-eye"></i></button>
+                        <button class="actions-btn edit-driver-btn" data-id="${driver.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="actions-btn delete delete-driver-btn" data-id="${driver.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                 </td>
             </tr>
         `).join('');
@@ -718,7 +720,9 @@ Downloaded at: ${new Date().toLocaleString()}
                 <td style="font-weight: 600;">${ride.amount}</td>
                 <td>${getRideStatusBadge(ride.status)}</td>
                 <td>
-                    <button class="actions-btn generate-bill-btn" data-id="${ride.id}" title="Generate Bill" style="color:var(--primary-color);"><i class="fa-solid fa-file-invoice"></i></button>
+                    <div class="action-btns-container">
+                        <button class="actions-btn generate-bill-btn" data-id="${ride.id}" title="Generate Bill" style="color:var(--primary-color);"><i class="fa-solid fa-file-invoice"></i></button>
+                    </div>
                 </td>
             </tr>
         `).join('');

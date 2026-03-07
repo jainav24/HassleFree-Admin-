@@ -117,47 +117,44 @@
             </div>
         </header>
 
-        <!-- View Container -->
-        <div class="view-container" id="viewContainer">
-            <!-- Dashboard View (Default) -->
-            <section id="dashboard" class="view-section active">
-                <div class="page-header">
-                    <h1>Dashboard Overview</h1>
-                    <p>Welcome back, here's what's happening today.</p>
-                </div>
+        <!-- Views -->
+        <section id="dashboard" class="view-section view-container active">
+            <div class="page-header">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back, here's what's happening today.</p>
+            </div>
 
-                <!-- Stats Cards Engine -->
-                <div class="stats-grid" id="dashboardStats">
-                    <!-- Cards injected by JS -->
-                </div>
+            <!-- Stats Cards Engine -->
+            <div class="stats-grid" id="dashboardStats">
+                <!-- Cards injected by JS -->
+            </div>
 
-                <!-- All Users & Drivers Table -->
-                <div class="card users-table-card">
-                    <div class="card-header">
-                        <h3><i class="fa-solid fa-users"
-                                style="color: var(--primary-color); margin-right: 0.5rem;"></i>All Users &amp; Drivers
-                        </h3>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="data-table" id="usersDriversTable">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Join Date</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th style="text-align:center;">Active</th>
-                                </tr>
-                            </thead>
-                            <tbody id="usersDriversTableBody">
-                                <!-- Injected by JS -->
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- All Users & Drivers Table -->
+            <div class="card users-table-card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-users"></i>All Users &amp; Drivers
+                    </h3>
                 </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="usersDriversTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Join Date</th>
+                                <th>Gender</th>
+                                <th>Role</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersDriversTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                <!-- Monthly Revenue Table -->
-                <!-- <div class="card revenue-report-card">
+            <!-- Monthly Revenue Table -->
+            <!-- <div class="card revenue-report-card">
                     <div class="card-header">
                         <h3><i class="fa-solid fa-chart-column"
                                 style="color: var(--primary-color); margin-right: 0.5rem;"></i>Revenue Report</h3>
@@ -182,275 +179,273 @@
 
                 <div class="dashboard-grid">
                     <!-- Chart Section: Monthly Revenue -->
-                    <div class="card chart-card">
-                        <div class="card-header">
-                            <h3>Revenue Overview</h3>
-                            <select class="filter-select" id="revenueFilter">
-                                <option value="month">This Month</option>
-                                <option value="year">This Year</option>
-                            </select>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="revenueChart"></canvas>
-                        </div>
-                    </div>
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h3>Revenue Overview</h3>
+                    <select class="filter-select" id="revenueFilter">
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
 
-                    <!-- Recent Activity Section: Latest Service Requests -->
-                    <!-- <div class="card activity-card">
+            <!-- Recent Activity Section: Latest Service Requests -->
+            <!-- <div class="card activity-card">
                         <div class="card-header">
                             <h3>Latest Service Requests</h3>
                             <a href="#" class="view-all" data-target="rides">View All</a>
                         </div>
                         <div class="card-body">
                             <div class="activity-list" id="recentRequestsList"> -->
-                                <!-- Injected by JS -->
-                            <!-- </div>
+            <!-- Injected by JS -->
+            <!-- </div>
                         </div>
                     </div> -->
 
-                    <!-- Chart Section: Trips Per Driver -->
-                    <div class="card chart-card">
-                        <div class="card-header">
-                            <h3>Trips Per Driver</h3>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="tripsChart"></canvas>
-                        </div>
-                    </div>
+            <!-- Chart Section: Trips Per Driver -->
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h3>Trips Per Driver</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="tripsChart"></canvas>
+                </div>
+            </div>
 
-                    <!-- Recent Activity Section: Latest Approvals -->
-                    <div class="card activity-card">
-                        <div class="card-header">
-                            <h3>Latest Approvals</h3>
-                            <a href="#" class="view-all" data-target="drivers">View All</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="activity-list" id="recentApprovalsList">
-                                <!-- Injected by JS -->
-                            </div>
-                        </div>
+            <!-- Recent Activity Section: Latest Approvals -->
+            <div class="card activity-card">
+                <div class="card-header">
+                    <h3>Latest Approvals</h3>
+                    <a href="#" class="view-all" data-target="drivers">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="activity-list" id="recentApprovalsList">
+                        <!-- Injected by JS -->
                     </div>
                 </div>
-            </section>
+            </div>
+            </div>
+        </section>
 
-            <!-- Drivers View -->
-            <section id="drivers" class="view-section">
-                <div class="page-header flex-header">
-                    <div>
-                        <h1>Driver Management</h1>
-                        <p>Manage your fleet of drivers.</p>
-                    </div>
-                    <button class="btn btn-primary" id="addDriverBtn">
-                        <i class="fa-solid fa-plus"></i> Add Driver
-                    </button>
+        <!-- Drivers View -->
+        <section id="drivers" class="view-section view-container">
+            <div class="page-header flex-header">
+                <div>
+                    <h1>Driver Management</h1>
+                    <p>Manage your fleet of drivers.</p>
                 </div>
+                <button class="btn btn-primary" id="addDriverBtn">
+                    <i class="fa-solid fa-plus"></i> Add Driver
+                </button>
+            </div>
 
-                <div class="card table-card">
-                    <div class="card-header border-bottom">
-                        <div class="table-filters">
-                            <input type="text" class="input-field" placeholder="Search drivers..."
-                                id="searchDriverInput">
-                            <select class="input-field" id="filterDriverStatus">
-                                <option value="all">All Status</option>
-                                <option value="Registration Received">Registration Received</option>
-                                <option value="Police Verification">Police Verification</option>
-                                <option value="Background Check">Background Check</option>
-                                <option value="Verified">Verified</option>
-                                <option value="Rejected">Rejected</option>
-                            </select>
+            <div class="card table-card">
+                <div class="card-header border-bottom">
+                    <div class="table-filters">
+                        <input type="text" class="input-field" placeholder="Search drivers..." id="searchDriverInput">
+                        <select class="input-field" id="filterDriverStatus">
+                            <option value="all">All Status</option>
+                            <option value="Registration Received">Registration Received</option>
+                            <option value="Police Verification">Police Verification</option>
+                            <option value="Background Check">Background Check</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Phone</th>
+                                <th>Experience</th>
+                                <th>License No.</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driversTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rides View -->
+        <section id="rides" class="view-section view-container">
+            <div class="page-header flex-header">
+                <div>
+                    <h1>Ride History & Requests</h1>
+                    <p>Track all completed rides and active service requests.</p>
+                </div>
+                <button class="btn btn-primary" id="createRequestBtn">
+                    <i class="fa-solid fa-plus"></i> Create Request
+                </button>
+            </div>
+
+            <div class="card table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Ride ID</th>
+                                <th>Customer</th>
+                                <th>Driver</th>
+                                <th>Date & Time</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ridesTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports View -->
+        <section id="reports" class="view-section view-container">
+            <div class="page-header flex-header">
+                <div>
+                    <h1>Analytics & Reports</h1>
+                    <p>Generate and analyze business metrics dynamically.</p>
+                </div>
+            </div>
+
+            <!-- 3 Monthly Revenue Report -->
+            <div class="dashboard-grid single-column mb-lg">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3>Monthly Revenue Report</h3>
+                        <div class="report-summary-text" id="revenueReportSummary">
+                            <!-- JS injected total summary & comp -->
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Driver Name</th>
-                                    <th>Phone</th>
-                                    <th>Experience</th>
-                                    <th>License No.</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="driversTableBody">
-                                <!-- Injected by JS -->
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <canvas id="reportsRevenueChart"></canvas>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Rides View -->
-            <section id="rides" class="view-section">
-                <div class="page-header flex-header">
-                    <div>
-                        <h1>Ride History & Requests</h1>
-                        <p>Track all completed rides and active service requests.</p>
-                    </div>
-                    <button class="btn btn-primary" id="createRequestBtn">
-                        <i class="fa-solid fa-plus"></i> Create Request
-                    </button>
+            <!-- 1 Monthly Sales Report -->
+            <div class="card table-card mb-lg">
+                <div class="card-header border-bottom">
+                    <h3>Monthly Sales Report</h3>
                 </div>
-
-                <div class="card table-card">
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Ride ID</th>
-                                    <th>Customer</th>
-                                    <th>Driver</th>
-                                    <th>Date & Time</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ridesTableBody">
-                                <!-- Injected by JS -->
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver No</th>
+                                <th>Driver Name</th>
+                                <th>Total Sale (Monthly)</th>
+                                <th>Number of Trips</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesReportTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
                 </div>
-            </section>
+            </div>
 
-            <!-- Reports View -->
-            <section id="reports" class="view-section">
-                <div class="page-header flex-header">
-                    <div>
-                        <h1>Analytics & Reports</h1>
-                        <p>Generate and analyze business metrics dynamically.</p>
-                    </div>
-                </div>
-
-                <!-- 3 Monthly Revenue Report -->
-                <div class="dashboard-grid" style="grid-template-columns: 1fr; margin-bottom: 2rem;">
-                    <div class="card chart-card">
-                        <div class="card-header">
-                            <h3>Monthly Revenue Report</h3>
-                            <div class="report-summary-text" id="revenueReportSummary">
-                                <!-- JS injected total summary & comp -->
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="reportsRevenueChart"></canvas>
-                        </div>
+            <!-- 2 Driver Database Report -->
+            <div class="card table-card">
+                <div class="card-header border-bottom flex-header">
+                    <h3>Driver Database Report</h3>
+                    <div class="table-filters">
+                        <input type="text" class="input-field" placeholder="Search drivers..."
+                            id="reportSearchDriverInput">
+                        <select class="input-field" id="reportFilterDriverStatus">
+                            <option value="all">All Status</option>
+                            <option value="Registration Received">Registration Received</option>
+                            <option value="Police Verification">Police Verification</option>
+                            <option value="Background Check">Background Check</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button class="btn btn-outline" id="exportCsvBtn">
+                            <i class="fa-solid fa-file-csv"></i> Export CSV
+                        </button>
                     </div>
                 </div>
-
-                <!-- 1 Monthly Sales Report -->
-                <div class="card table-card" style="margin-bottom: 2rem;">
-                    <div class="card-header border-bottom">
-                        <h3>Monthly Sales Report</h3>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Driver No</th>
-                                    <th>Driver Name</th>
-                                    <th>Total Sale (Monthly)</th>
-                                    <th>Number of Trips</th>
-                                </tr>
-                            </thead>
-                            <tbody id="salesReportTableBody">
-                                <!-- Injected by JS -->
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Driver Name</th>
+                                <th>Experience</th>
+                                <th>License No.</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driverReportTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </section>
 
-                <!-- 2 Driver Database Report -->
-                <div class="card table-card">
-                    <div class="card-header border-bottom flex-header">
-                        <h3>Driver Database Report</h3>
-                        <div class="table-filters">
-                            <input type="text" class="input-field" placeholder="Search drivers..."
-                                id="reportSearchDriverInput">
-                            <select class="input-field" id="reportFilterDriverStatus">
-                                <option value="all">All Status</option>
-                                <option value="Registration Received">Registration Received</option>
-                                <option value="Police Verification">Police Verification</option>
-                                <option value="Background Check">Background Check</option>
-                                <option value="Verified">Verified</option>
-                                <option value="Rejected">Rejected</option>
-                            </select>
-                            <button class="btn btn-outline" id="exportCsvBtn">
-                                <i class="fa-solid fa-file-csv"></i> Export CSV
-                            </button>
-                        </div>
+        <!-- Settings View -->
+        <section id="settings" class="view-section view-container">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your admin experience and manage system preferences.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-user-gear"></i> Profile Settings</h3>
                     </div>
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Driver ID</th>
-                                    <th>Driver Name</th>
-                                    <th>Experience</th>
-                                    <th>License No.</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="driverReportTableBody">
-                                <!-- Injected by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Settings View -->
-            <section id="settings" class="view-section">
-                <div class="page-header">
-                    <h1>Settings</h1>
-                    <p>Customize your admin experience and manage system preferences.</p>
-                </div>
-
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fa-solid fa-user-gear"></i> Profile Settings</h3>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label>Display Name</label>
-                                    <input type="text" class="input-field" value="Admin User">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input type="email" class="input-field" value="admin@hasslefreedrive.com">
-                                </div>
-                                <button type="button" class="btn btn-primary">Update Profile</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fa-solid fa-sliders"></i> System Preferences</h3>
-                        </div>
-                        <div class="card-body">
+                    <div class="card-body">
+                        <form>
                             <div class="form-group">
-                                <label>Notification Alerts</label>
-                                <select class="input-field">
-                                    <option>Enabled</option>
-                                    <option>Disabled</option>
-                                </select>
+                                <label>Display Name</label>
+                                <input type="text" class="input-field" value="Admin User">
                             </div>
                             <div class="form-group">
-                                <label>Currency Display</label>
-                                <select class="input-field">
-                                    <option>INR (₹)</option>
-                                    <option>USD ($)</option>
-                                </select>
+                                <label>Email Address</label>
+                                <input type="email" class="input-field" value="admin@hasslefreedrive.com">
                             </div>
-                            <button type="button" class="btn btn-outline">Apply Settings</button>
-                        </div>
+                            <button type="button" class="btn btn-primary">Update Profile</button>
+                        </form>
                     </div>
                 </div>
-            </section>
-        </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sliders"></i> System Preferences</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Notification Alerts</label>
+                            <select class="input-field">
+                                <option>Enabled</option>
+                                <option>Disabled</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Currency Display</label>
+                            <select class="input-field">
+                                <option>INR (₹)</option>
+                                <option>USD ($)</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline">Apply Settings</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Modal Overlay -->

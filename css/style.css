@@ -2,42 +2,49 @@
    CSS Variables & Resets
    ========================================= */
 :root {
+    /* Brand */
     --primary-color: #0F9D58;
-    /* Google Green / Premium Green */
     --primary-dark: #0b7d46;
     --primary-light: #e6f6eb;
 
     --gradient-primary: linear-gradient(135deg, #0F9D58 0%, #0b7d46 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
-    --bg-main: #f4f6f9;
+    /* Surfaces */
+    --bg-main: #F5F7FA;
+    /* Light neutral background */
     --bg-white: #ffffff;
 
-    --text-dark: #1e293b;
-    --text-muted: #64748b;
+    /* Typography */
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+    --text-dark: var(--text-primary);
+    --text-muted: var(--text-secondary);
     --text-light: #94a3b8;
 
+    /* Borders */
     --border-color: #e2e8f0;
 
+    /* Semantic */
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
 
+    /* Layout */
     --sidebar-width: 260px;
     --header-height: 80px;
-    /* Slightly taller to seat bigger logo */
 
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.08), 0 3px 6px -2px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+    /* Elevation */
+    --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 6px 12px -2px rgba(15, 23, 42, 0.08), 0 3px 6px -2px rgba(15, 23, 42, 0.06);
+    --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.12), 0 8px 16px -4px rgba(15, 23, 42, 0.08);
 
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.3);
-
+    /* Radius */
     --radius-md: 10px;
-    --radius-lg: 16px;
+    --radius-lg: 12px;
 
-    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Motion */
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -55,9 +62,10 @@ body {
 
 body {
     background-color: var(--bg-main);
-    color: var(--text-dark);
+    color: var(--text-primary);
     display: flex;
     min-height: 100vh;
+    font-size: 14px;
 }
 
 a {
@@ -83,7 +91,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--text-dark);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -143,6 +151,10 @@ h6 {
     transition: var(--transition);
 }
 
+.btn i {
+    vertical-align: middle;
+}
+
 .btn-primary {
     background: var(--gradient-primary);
     color: var(--bg-white);
@@ -151,7 +163,7 @@ h6 {
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    background: var(--primary-dark);
     box-shadow: 0 4px 12px rgba(15, 157, 88, 0.25);
     transform: translateY(-2px);
 }
@@ -268,13 +280,13 @@ h6 {
 .nav-links {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
 }
 
 .nav-link {
     display: flex;
     align-items: center;
-    padding: 0.8rem 1rem;
+    padding: 0.75rem 1rem;
     color: var(--text-muted);
     border-radius: var(--radius-md);
     font-weight: 500;
@@ -294,7 +306,6 @@ h6 {
     background-color: var(--primary-light);
     color: var(--primary-color);
     border-left-color: var(--primary-color);
-    padding-left: 1.25rem;
 }
 
 .nav-link.active {
@@ -335,8 +346,8 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.5rem;
-    /* Reduced from 2rem to align better with view-container */
+    padding: 0 32px;
+    /* Unified with view-container padding */
     position: sticky;
     top: 0;
     z-index: 90;
@@ -535,17 +546,32 @@ h6 {
    Views Container
    ========================================= */
 .view-container {
-    padding: 2rem;
+    padding: 32px;
+    /* Global uniform horizontal and vertical padding */
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     flex: 1;
+}
+
+/* ensure direct children of the view container expand to the same max width */
+.view-container>* {
+    width: 100%;
 }
 
 .view-section {
     display: none;
     animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .view-section.active {
-    display: block;
+    display: flex;
 }
 
 @keyframes fadeIn {
@@ -561,17 +587,22 @@ h6 {
 }
 
 .page-header {
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
+    padding-left: 24px;
+    /* Align with internal card content area (24px) */
+    text-align: left;
+    width: 100%;
 }
 
 .page-header h1 {
-    font-size: 1.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .page-header p {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 14px;
 }
 
 .flex-header {
@@ -580,15 +611,55 @@ h6 {
     justify-content: space-between;
 }
 
+/* Simple layout utility helpers (used across pages instead of inline styles) */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-sm {
+    gap: 0.5rem;
+}
+
+.gap-md {
+    gap: 1rem;
+}
+
+.mb-sm {
+    margin-bottom: 0.5rem;
+}
+
+.mb-md {
+    margin-bottom: 1rem;
+}
+
+.mb-lg {
+    margin-bottom: 2rem;
+}
+
 /* =========================================
    Dashboard Components
    ========================================= */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* Reduced from 240px for better fit */
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-bottom: 32px;
 }
 
 .stat-card {
@@ -676,26 +747,28 @@ h6 {
     gap: 1.5rem;
 }
 
+.dashboard-grid.single-column {
+    grid-template-columns: 1fr;
+}
+
 /* Cards Generic */
 .card {
     background: var(--bg-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid var(--border-color);
     overflow: hidden;
     transition: var(--transition);
 }
 
 .card:hover {
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border-color: rgba(15, 157, 88, 0.2);
-    /* Soft green border on hover */
-    transform: translateY(-4px);
-    /* Slightly more prominent lift */
+    transform: translateY(-2px);
 }
 
 .card-header {
-    padding: 1.25rem 1.5rem;
+    padding: 24px 24px;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -703,11 +776,12 @@ h6 {
 }
 
 .card-header h3 {
-    font-size: 1.1rem;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .card-body {
-    padding: 1.5rem;
+    padding: 24px;
 }
 
 .filter-select {
@@ -802,6 +876,23 @@ h6 {
     width: 100%;
 }
 
+/* adapt filters in drivers view to wrap */
+#drivers .table-filters {
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#drivers .table-filters .input-field {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* ensure the add driver button stays at right in header */
+#drivers .page-header .btn {
+    margin-left: auto;
+}
+
+
 .input-field {
     padding: 0.6rem 1rem;
     border: 1px solid var(--border-color);
@@ -820,42 +911,127 @@ h6 {
 
 .table-responsive {
     overflow-x: auto;
+    position: relative;
+    width: 100%;
 }
 
 .data-table {
     width: 100%;
     border-collapse: collapse;
+    /* Removed table-layout: fixed - allowing content to determine widths */
 }
 
 .data-table th,
 .data-table td {
-    padding: 1rem 1.5rem;
+    padding: 18px 24px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+/* driver row specifics */
+.driver-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.driver-info-cell .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.driver-info-cell .email {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* center action buttons column */
+/* align action buttons column to the right */
+.data-table td:last-child,
+.data-table th:last-child {
+    text-align: right;
+}
+
+.action-btns-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--primary-light);
+}
+
+.card+.card {
+    margin-top: 1.5rem;
 }
 
 .data-table th {
     background-color: #f8fafc;
     color: var(--text-muted);
-    font-weight: 500;
-    font-size: 0.85rem;
+    font-weight: 600;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
+}
+
+.data-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .data-table td {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-dark);
 }
 
+/* Specific distribution for Driver table */
+#drivers .data-table th:nth-child(1),
+#drivers .data-table td:nth-child(1) {
+    width: 25%;
+}
+
+#drivers .data-table th:nth-child(2),
+#drivers .data-table td:nth-child(2) {
+    width: 15%;
+}
+
+#drivers .data-table th:nth-child(3),
+#drivers .data-table td:nth-child(3) {
+    width: 12%;
+}
+
+#drivers .data-table th:nth-child(4),
+#drivers .data-table td:nth-child(4) {
+    width: 15%;
+}
+
+#drivers .data-table th:nth-child(5),
+#drivers .data-table td:nth-child(5) {
+    width: 18%;
+}
+
+#drivers .data-table th:nth-child(6),
+#drivers .data-table td:nth-child(6) {
+    width: 15%;
+}
+
 .data-table tbody tr {
-    transition: var(--transition);
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+    /* Subtle Zebra Striping */
 }
 
 .data-table tbody tr:hover {
-    background-color: var(--primary-light);
-    transform: scale(1.001);
-    box-shadow: 0 2px 8px rgba(15, 157, 88, 0.08);
+    background-color: rgba(15, 157, 88, 0.06) !important;
 }
 
 .driver-info-cell {
@@ -993,12 +1169,20 @@ h6 {
    Responsive Design
    ========================================= */
 @media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
 
     /* Collapse Sidebar */
     .sidebar {
@@ -1032,7 +1216,10 @@ h6 {
     }
 
     .view-container {
-        padding: 1.5rem;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .top-header {
@@ -1065,7 +1252,10 @@ h6 {
     }
 
     .view-container {
-        padding: 1rem;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .top-header {
@@ -1256,10 +1446,11 @@ h6 {
 
 /* ---- Page-header green accent bar ---- */
 .page-header h1 {
-    font-size: 1.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: 8px;
 }
 
 .page-header h1::after {
