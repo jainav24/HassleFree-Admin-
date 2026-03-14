@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics | HassleFreeDrive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="top-header"></header>
+
+        <section id="reports" class="view-section view-container active fade-in">
+            <div class="page-header">
+                <h1>Analytics & Reports</h1>
+                <p>Generate and analyze business metrics dynamically.</p>
+            </div>
+
+            <div class="card chart-card mb-lg">
+                <div class="card-header">
+                    <h3>Monthly Revenue Overview</h3>
+                    <div id="revenueReportSummary"></div>
+                </div>
+                <div class="card-body">
+                    <canvas id="reportsRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card table-card mb-lg">
+                <div class="card-header">
+                    <h3>Monthly Sales Report</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Driver Name</th>
+                                <th>Total Sale</th>
+                                <th>Trips</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesReportTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card table-card">
+                <div class="card-header flex-header">
+                    <h3>Driver Database Report</h3>
+                    <div class="table-filters">
+                        <input type="text" class="input-field" placeholder="Search..." id="reportSearchDriverInput">
+                        <select class="input-field" id="reportFilterDriverStatus">
+                            <option value="all">All</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button class="btn btn-outline" id="exportCsvBtn">Export CSV</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name & Phone</th>
+                                <th>Experience</th>
+                                <th>License</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driverReportTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rides & Requests | HassleFreeDrive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="top-header"></header>
+
+        <section id="rides" class="view-section view-container active fade-in">
+            <div class="page-header flex-header">
+                <div>
+                    <h1>Ride History & Requests</h1>
+                    <p>Track all completed rides and active service requests.</p>
+                </div>
+                <button class="btn btn-primary" id="createRequestBtn">
+                    <i class="fa-solid fa-plus"></i> Create Request
+                </button>
+            </div>
+
+            <div class="card table-card">
+                <div class="card-header border-bottom">
+                    <div class="table-filters">
+                        <input type="text" class="input-field" placeholder="Search rides..." id="searchRideInput">
+                        <select class="input-field" id="filterRideStatus">
+                            <option value="all">All Status</option>
+                            <option value="Completed">Completed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Ride ID</th>
+                                <th>Customer</th>
+                                <th>Driver</th>
+                                <th>Date & Time</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ridesTableBody">
+                            <!-- Injected by rides.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="createRequestModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Service Request</h3>
+                <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="requestForm">
+                    <div class="form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="reqClientName" class="input-field" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="reqDate" class="input-field" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="time" id="reqTime" class="input-field" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration (Hrs)</label>
+                            <input type="number" id="reqDuration" class="input-field" value="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Est. Amount (₹)</label>
+                            <input type="number" id="reqAmount" class="input-field" value="500" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="reqLocation" class="input-field" placeholder="Pickup to Dropoff" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Assign Driver</label>
+                        <select id="reqDriverAssign" class="input-field"></select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelRequestBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation Modal -->
+    <div class="modal-overlay" id="driverSimulationModal">
+        <div class="modal-content" style="background: #1e293b; color: white;">
+            <div class="modal-header" style="border-bottom: 1px solid #334155;">
+                <h3 style="color: white;"><i class="fa-solid fa-mobile-screen"></i> Driver App Simulator</h3>
+                <button class="close-modal-btn" id="closeSimModalBtn" style="color: #94a3b8;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>New request for <strong id="simDriverName" class="text-primary"></strong></p>
+                <div class="card" style="background: #334155; border: none; color: #e2e8f0; padding:1rem; margin: 1rem 0;">
+                    <p><i class="fa-solid fa-user"></i> <span id="simClient"></span></p>
+                    <p><i class="fa-regular fa-clock"></i> <span id="simDateTime"></span></p>
+                    <p><i class="fa-solid fa-location-dot"></i> <span id="simLocation"></span></p>
+                    <p><i class="fa-solid fa-indian-rupee-sign"></i> <span id="simAmount"></span></p>
+                </div>
+                <div class="flex gap-md">
+                    <button type="button" class="btn btn-danger" id="simRejectBtn" style="flex:1;">Reject</button>
+                    <button type="button" class="btn btn-primary" id="simAcceptBtn" style="flex:1; background:#10b981; border:none;">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div class="modal-overlay" id="generateInvoiceModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Generate Client Invoice</h3>
+                <button class="close-modal-btn" id="closeInvoiceModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="invoicePrintArea" style="padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <h2 class="text-center text-primary mb-md">HassleFreeDrive</h2>
+                    <div class="flex justify-between mb-md">
+                        <div><p class="text-muted">Billed To:</p><h4 id="invClientName">Client</h4><p id="invRideDate" style="font-size:0.85rem; color:#64748b;"></p></div>
+                        <div class="text-right"><p class="text-muted">Invoice No:</p><h4 id="invNumber">--</h4></div>
+                    </div>
+                    <form id="invoiceForm">
+                        <div class="form-row d-print-none mb-md">
+                            <div class="form-group"><label>Distance (KM)</label><input type="number" id="invDistance" class="input-field" value="10"></div>
+                            <div class="form-group"><label>Rate (₹)</label><input type="number" id="invRate" class="input-field" value="15"></div>
+                            <div class="form-group"><label>Tax %</label><input type="number" id="invTax" class="input-field" value="18"></div>
+                        </div>
+                        <div style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                            <div class="flex justify-between mb-sm"><span>Subtotal:</span><span id="invSubtotal">0.00</span></div>
+                            <div class="flex justify-between mb-sm"><span id="invTaxLabel">Tax:</span><span id="invTaxAmount">0.00</span></div>
+                            <div class="flex justify-between" style="border-top:1px dashed #cbd5e1; padding-top:0.5rem; font-weight:700;"><span>Total:</span><span class="text-primary">₹<span id="invTotalAmount">0.00</span></span></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="printInvoiceBtn">Print</button>
+                    <button type="button" class="btn btn-primary" id="downloadInvoiceBtn">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/rides.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Management | HassleFreeDrive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="top-header"></header>
+
+        <section id="drivers" class="view-section view-container active fade-in">
+            <div class="page-header flex-header">
+                <div>
+                    <h1>Driver Management</h1>
+                    <p>Manage your fleet of drivers.</p>
+                </div>
+                <button class="btn btn-primary" id="addDriverBtn">
+                    <i class="fa-solid fa-plus"></i> Add Driver
+                </button>
+            </div>
+
+            <div class="card table-card">
+                <div class="card-header border-bottom">
+                    <div class="table-filters">
+                        <input type="text" class="input-field" placeholder="Search drivers..." id="searchDriverInput">
+                        <select class="input-field" id="filterDriverStatus">
+                            <option value="all">All Status</option>
+                            <option value="Registration Received">Registration Received</option>
+                            <option value="Police Verification">Police Verification</option>
+                            <option value="Background Check">Background Check</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Phone</th>
+                                <th>Experience</th>
+                                <th>License No.</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driversTableBody">
+                            <!-- Injected by drivers.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="driverModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Driver</h3>
+                <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="driverForm">
+                    <input type="hidden" id="driverId">
+                    <div class="form-group">
+                        <label for="driverName">Full Name</label>
+                        <input type="text" id="driverName" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="driverPhone">Phone Number</label>
+                        <input type="tel" id="driverPhone" class="input-field" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driverExperience">Experience</label>
+                            <input type="text" id="driverExperience" class="input-field" placeholder="e.g. 5+ Yrs" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="driverLicense">License No.</label>
+                            <input type="text" id="driverLicense" class="input-field" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="driverStatus">Status</label>
+                        <select id="driverStatus" class="input-field">
+                            <option value="Registration Received">Registration Received</option>
+                            <option value="Police Verification">Police Verification</option>
+                            <option value="Background Check">Background Check</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Driver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewDriverModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Driver Details: <span id="viewDriverName" class="text-primary"></span></h3>
+                <button class="close-modal-btn" id="closeViewModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-md" style="padding: 1rem;">
+                    <p><strong>Phone:</strong> <span id="viewDriverPhone"></span></p>
+                    <p><strong>Experience:</strong> <span id="viewDriverExperience"></span></p>
+                    <p><strong>License:</strong> <span id="viewDriverLicense"></span></p>
+                    <p><strong>Status:</strong> <span id="viewDriverStatusBadge"></span></p>
+                </div>
+                <div class="verification-workflow">
+                    <h4>Verification Workflow</h4>
+                    <div class="stepper" id="verificationStepper">
+                        <div class="step"><div class="step-circle">1</div><div class="step-label">Reg. Received</div></div>
+                        <div class="step-line"></div>
+                        <div class="step"><div class="step-circle">2</div><div class="step-label">Police Ver.</div></div>
+                        <div class="step-line"></div>
+                        <div class="step"><div class="step-circle">3</div><div class="step-label">Bg. Check</div></div>
+                        <div class="step-line"></div>
+                        <div class="step"><div class="step-circle">4</div><div class="step-label">Verified</div></div>
+                    </div>
+                </div>
+                <div class="form-actions" id="verificationActionBtns">
+                    <button type="button" class="btn btn-outline" id="downloadPdfBtn">Download Info</button>
+                    <button type="button" class="btn btn-danger" id="rejectDriverBtn">Reject</button>
+                    <button type="button" class="btn btn-primary" id="nextVerificationBtn">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/drivers.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+/* =========================================
+   Responsive: Media queries and adaptive styles
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Collapse Sidebar */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .close-sidebar-btn {
+        display: block;
+    }
+
+    .search-bar {
+        width: 200px;
+    }
+
+    .view-container {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top-header {
+        padding: 0 1rem;
+    }
+
+    .flex-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header-left {
+        gap: 1rem;
+    }
+    
+    /* Tables need horizontal scroll */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        display: none;
+    }
+
+    .header-right {
+        gap: 0.75rem;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .view-container {
+        padding: 1rem;
+    }
+
+    .top-header {
+        padding: 0 0.75rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .table-filters {
+        flex-direction: column;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body * { visibility: hidden; }
+
+    #generateInvoiceModal {
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%; margin: 0; padding: 0;
+        border: none; background: transparent;
+    }
+
+    #generateInvoiceModal .modal-content {
+        box-shadow: none; border: none;
+        margin: 0; padding: 0;
+        width: 100%; max-width: none;
+    }
+
+    #invoicePrintArea, #invoicePrintArea * {
+        visibility: visible;
+    }
+
+    #invoicePrintArea {
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        border: none !important;
+    }
+
+    .d-print-none, .modal-header, .form-actions {
+        display: none !important;
+    }
+}

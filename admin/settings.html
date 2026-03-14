@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | HassleFreeDrive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="top-header"></header>
+
+        <section id="settings" class="view-section view-container active fade-in">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your admin experience and manage system preferences.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header"><h3><i class="fa-solid fa-user-gear"></i> Profile Settings</h3></div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group"><label>Display Name</label><input type="text" class="input-field" value="Admin User"></div>
+                            <div class="form-group"><label>Email Address</label><input type="email" class="input-field" value="admin@hasslefreedrive.com"></div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fa-solid fa-sliders"></i> System Preferences</h3></div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Notification Alerts</label>
+                            <select class="input-field"><option>Enabled</option><option>Disabled</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Currency Display</label>
+                            <select class="input-field"><option>INR (₹)</option><option>USD ($)</option></select>
+                        </div>
+                        <button type="button" class="btn btn-outline">Apply Settings</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/settings.js"></script>
+</body>
+</html>
